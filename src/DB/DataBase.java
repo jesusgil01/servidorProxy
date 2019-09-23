@@ -10,10 +10,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author villalobos28
- */
 public interface DataBase {
     public Connection Open();
     public DefaultTableModel Select(String queryString)throws SQLException;
