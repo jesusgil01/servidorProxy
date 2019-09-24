@@ -40,7 +40,7 @@ public class PostgreSQL implements DataBase {
             return CONNECTION;
 
         } catch (Exception e) {
-            System.out.println(e+ "...");
+            System.out.println(e + "...");
         }
         return null;
     }
@@ -65,10 +65,10 @@ public class PostgreSQL implements DataBase {
 
         try { // try-catch-finally
             CONNECTION = Open();
-            
+
             // Inicializar Statement y Resulset
             st = CONNECTION.createStatement(
-                ResultSet.TYPE_SCROLL_INSENSITIVE,
+                    ResultSet.TYPE_SCROLL_INSENSITIVE,
                     ResultSet.CONCUR_READ_ONLY);
             // rs = st.executeQuery( "SELECT expediente, nombre, sexo, activo FROM Alumno");
             rs = st.executeQuery(queryString);
@@ -124,6 +124,42 @@ public class PostgreSQL implements DataBase {
         }
 
         return dtm; // Regresa un modelo de datos para ser enlazado a una Table o similar
+    }
+
+    @Override
+    public boolean Insert(String queryString) throws SQLException {
+        Statement st = null;
+        int regreso = 0;
+        try { // try-catch-finally
+            CONNECTION = Open();
+            // Inicializar Statement y Resulset
+            st = CONNECTION.createStatement(
+                    ResultSet.TYPE_SCROLL_INSENSITIVE,
+                    ResultSet.CONCUR_READ_ONLY);
+            regreso = st.executeUpdate(queryString);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Excepción: " + ex.toString());
+            // System.out.println("Excepción: " + ex.toString());
+        } finally {
+            // Cierra o null los objetos
+            try {
+                if (st != null) {
+                    st.close();
+                }
+                if (CONNECTION != null) {
+                    CONNECTION.close();
+                }
+            } catch (Exception ex) {
+                System.out.println("Excepción: " + ex.toString());
+            }
+        }
+        // return regreso > 0;
+        if (regreso > 0) {
+            return true;
+        }
+
+        return false;
+
     }
 
 }
