@@ -12,12 +12,15 @@ package DB;
 public class FactoryIMPL implements Factory {
 
     public final static String POSTGRESQL = "PostgreSQL";
+    public final static String MYSQL = "MySQL";
     
     @Override
     public DataBase CreaConexion(String DBMS) {
         switch (DBMS){
             case POSTGRESQL:
                 return new PostgreSQL();
+            case MYSQL:
+                return new MySQL();
         }
         return null;
     }
