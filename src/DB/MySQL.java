@@ -23,8 +23,8 @@ public class MySQL implements DataBase {
     public static Connection CONNECTION;
     public static final String HOSTNAME = "localhost";
     public static final String DBNAME = "dbds413";
-    public static final String USERNAME = "root";
-    public static final String PASSWORD = "root";
+    public static final String USERNAME = "usuario";
+    public static final String PASSWORD = "toor";
     public static final String PORT = "8889";
 
     @Override
