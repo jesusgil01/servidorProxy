@@ -5,6 +5,7 @@
  */
 package DB;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 import javax.swing.table.DefaultTableModel;
 
@@ -13,26 +14,44 @@ import javax.swing.table.DefaultTableModel;
  * @author villalobos28
  */
 public class Prueba {
-    public static void main (String [] args) throws SQLException{
-        
+
+    public static void main(String[] args) throws SQLException {
+
         // Clase de pruebas
-        
         Factory mifactoria = new FactoryIMPL();
-        DataBase postgresql = mifactoria.CreaConexion("PostgreSQL");
-        //postgresql.Open();
-        DefaultTableModel dtm = postgresql.Select("SELECT id, nombre, direccion, telefono, encargadoid\n" +
-"	FROM public.\"Tiendas\";");
+        DataBase postgresql = mifactoria.CreaConexion("MySQL");
+
+        String select = "SELECT `Tiendas`.`id`,\n"
+                + "    `Tiendas`.`nombre`,\n"
+                + "    `Tiendas`.`direccion`,\n"
+                + "    `Tiendas`.`telefono`,\n"
+                + "    `Tiendas`.`encargadoid`,\n"
+                + "    `Tiendas`.`ventas`\n"
+                + "FROM `dbds413`.`Tiendas`;";
         
-         //System.out.println(dtm.getColumnName(0));
-         System.out.println(dtm.getValueAt(0, 0));
-         
-         boolean a = postgresql.Insert("INSERT INTO public.\"Usuarios\"(\n" +
-"	nombre, apellidos, fechanaci, genero, curp, rfc, estadocivil, telefono, email, rol, username, password, id_tienda, salario, direccion)\n" +
-"	VALUES ('Hector', 'Valenzuela', '1999-07-28', 'M', 'VIVJS99072826H807', 'VIVJ990728GG2', \n" +
-"			'Soltero', 6621485453, 'hectorvlbs@gmail.com', 'Empleado', 'Hectorr', 'toor1234', 1, 10000, 'Sin nombre #270');");
-         
-         System.out.println(a);
-         
         
+        String insert = "INSERT INTO `dbds413`.`Tiendas`\n"
+                + "(`nombre`,\n"
+                + "`direccion`,\n"
+                + "`telefono`,\n"
+                + "`encargadoid`,\n"
+                + "`ventas`)\n"
+                + "VALUES\n"
+                + "(\"Quiroga\",\n"
+                + "\"Boulevard Quiroga\",\n"
+                + "\"6621485411\",\n"
+                + "002,\n"
+                + "10400.10);";
+
+        //postgresql.Insert(insert);
+        
+        //Connection con = postgresql.Open();
+        
+
+        DefaultTableModel dtm = postgresql.Select(select);
+
+        //dtm.getValueAt(0, 0);
+        System.out.println(dtm.getValueAt(3, 3).toString());
+
     }
 }
