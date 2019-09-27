@@ -6,13 +6,13 @@ public class NewUserInfo {
     private String nombre;
     private String apellido;
     private String fechanaci;
-    private char genero;
+    private String genero;
     private String curp;
     private String rfc;
-    private char estadocivil;
+    private String estadocivil;
     private String telefono;
     private String email;
-    private char rol;
+    private String rol;
     private String username;
     private String password;
     private int id_tienda;
@@ -43,11 +43,11 @@ public class NewUserInfo {
         this.fechanaci = fechanaci;
     }
 
-    public char getGenero() {
+    public String getGenero() {
         return genero;
     }
 
-    public void setGenero(char genero) {
+    public void setGenero(String genero) {
         this.genero = genero;
     }
 
@@ -67,11 +67,11 @@ public class NewUserInfo {
         this.rfc = rfc;
     }
 
-    public char getEstadocivil() {
+    public String getEstadocivil() {
         return estadocivil;
     }
 
-    public void setEstadocivil(char estadocivil) {
+    public void setEstadocivil(String estadocivil) {
         this.estadocivil = estadocivil;
     }
 
@@ -91,11 +91,11 @@ public class NewUserInfo {
         this.email = email;
     }
 
-    public char getRol() {
+    public String getRol() {
         return rol;
     }
 
-    public void setRol(char rol) {
+    public void setRol(String rol) {
         this.rol = rol;
     }
 

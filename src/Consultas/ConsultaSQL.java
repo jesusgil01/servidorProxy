@@ -13,6 +13,13 @@ import Validator.NewUserInfo;
  */
 public class ConsultaSQL {
 
+    public String login(String usuario, String password, String rol) {
+        return "SELECT [usuarios`.`id]  FROM dbds413.usuarios\n"
+                + "WHERE [usuarios`.`username] = '"+usuario+"' "
+                + "AND [usuarios`.`password] = '"+password+"' "
+                + "AND [usuarios`.`rol] = '"+rol+"';";
+    }
+
     public String insertTienda(String nombre, String direccion, String telefono, String encargadoid, String ventas) {
         return "INSERT INTO \"Tiendas\"(\n"
                 + "	nombre, direccion, telefono, encargadoid, ventas)\n"
@@ -69,7 +76,7 @@ public class ConsultaSQL {
                 + "FROM dbds413.usuarios\n"
                 + "INNER JOIN `dbds413`.`tiendas`\n"
                 + "ON usuarios.id_tienda = tiendas.id\n"
-                + "WHERE tiendas.nombre = '"+nombreSucursal+"';";
+                + "WHERE tiendas.nombre = '" + nombreSucursal + "';";
     }
 
 }

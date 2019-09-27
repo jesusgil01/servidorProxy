@@ -161,5 +161,24 @@ public class PostgreSQL implements DataBase {
         return false;
 
     }
+    
+        @Override
+    public boolean login(String queryString) throws SQLException {
+        Statement st = null;        
+        try { // try-catch-finally
+            CONNECTION = Open();
+            // Inicializar Statement y Resulset
+            st = CONNECTION.createStatement(
+                    ResultSet.TYPE_SCROLL_INSENSITIVE,
+                    ResultSet.CONCUR_READ_ONLY);
+            if (st.execute(queryString)) {
+                return true;
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Excepción: " + ex.toString());
+        }
+
+        return false;
+    }
 
 }

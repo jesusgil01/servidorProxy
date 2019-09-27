@@ -15,5 +15,6 @@ public interface DataBase {
     public void Close();
     public DefaultTableModel Select(String queryString)throws SQLException;
     public boolean Insert(String queryString)throws SQLException;
+    public boolean login(String queryString) throws SQLException;
     //public int CreateTable(String queryString)throws SQLException;
 }
