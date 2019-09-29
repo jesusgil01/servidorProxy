@@ -23,9 +23,9 @@ public class MySQL implements DataBase {
     public static Connection CONNECTION;
     public static final String HOSTNAME = "localhost";
     public static final String DBNAME = "dbds413";
-    public static final String USERNAME = "root";
+    public static final String USERNAME = "usuario";
     public static final String PASSWORD = "toor";
-    public static final String PORT = "3306";
+    public static final String PORT = "8889";
 
     @Override
     public Connection Open() {
@@ -163,14 +163,16 @@ public class MySQL implements DataBase {
 
     @Override
     public boolean login(String queryString) throws SQLException {
-        Statement st = null;        
+        Statement st = null; 
+        ResultSet rs = null;
         try { // try-catch-finally
             CONNECTION = Open();
             // Inicializar Statement y Resulset
             st = CONNECTION.createStatement(
                     ResultSet.TYPE_SCROLL_INSENSITIVE,
                     ResultSet.CONCUR_READ_ONLY);
-            if (st.execute(queryString)) {
+            rs = st.executeQuery(queryString);
+            if (rs.next()) {
                 return true;
             }
         } catch (Exception ex) {
