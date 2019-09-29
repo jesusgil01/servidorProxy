@@ -23,9 +23,7 @@ public class ReportGeneratorImpl extends UnicastRemoteObject implements ReportGe
     DataBase db = mifactoria.CreaConexion(Manejador);
 
     ConsultaMySQL consulta = new ConsultaMySQL();
-    //ConsultaSQL consulta = new ConsultaSQL();
-    //ConsultasPostgreSQL consulta = new ConsultasPostgreSQL();
-
+    
     DefaultTableModel dt;
     String query = "";
 
@@ -34,20 +32,20 @@ public class ReportGeneratorImpl extends UnicastRemoteObject implements ReportGe
 
     @Override
     public boolean insertUsuario(NewUserInfo user) {
-
+        System.out.println("Entró al método insertar usuario");
         query = consulta.insertUsuario(user);
-        System.out.println(query);
-
+        System.out.println("Creó la consulta");
         try {
 
             if (db.Insert(query) == true) {
+                System.out.println("Realizó la consulta y simon");
                 return true;
             }
 
         } catch (SQLException ex) {
             Logger.getLogger(ReportGeneratorImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        System.out.println("Realizó la consulta y nel");
         return false;
     }
 
@@ -95,7 +93,7 @@ public class ReportGeneratorImpl extends UnicastRemoteObject implements ReportGe
     }
 
     @Override
-    public DefaultTableModel ventasDeSucursal(String sucursal) throws RemoteException{
+    public DefaultTableModel ventasDeSucursal(String sucursal) throws RemoteException {
         query = consulta.ventasDeSucursal(sucursal);
 
         try {
@@ -144,14 +142,15 @@ public class ReportGeneratorImpl extends UnicastRemoteObject implements ReportGe
 
     @Override
     public boolean login(String usuario, String password, String rol) throws RemoteException {
-        System.out.println("ll");
 
-        query = consulta.login(usuario, password, rol);
-        
+        String query = consulta.login(usuario, password, rol);
+        System.out.println("Entró al método login");
         try {
             if (db.login(query) == true) {
+                System.out.println("Validó login");
                 return true;
             }
+
         } catch (SQLException ex) {
             Logger.getLogger(ReportGeneratorImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -159,14 +158,30 @@ public class ReportGeneratorImpl extends UnicastRemoteObject implements ReportGe
         return false;
     }
 
+    public boolean existeUsuario(NewUserInfo user) throws RemoteException {
+        String query = consulta.login(user.getUsername(), user.getPassword(), user.getRol());
+        System.out.println("Entró al método existe usuario");
+        try {
+            if (db.login(query) == true) {
+                System.out.println("Validó login");
+                return false;
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(ReportGeneratorImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return true;
+    }
+
     public static void main(String[] args) {
 
         try {
-            System.out.println("Corriendo");
             Registry reg = LocateRegistry.createRegistry(4513);
             ReportGenerator reportGenerator = new ReportGeneratorImpl();
             reg.rebind("ServidorProxy", reportGenerator);
-        } catch (RemoteException e) {
+            System.out.println("Realizó la conexión");
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
