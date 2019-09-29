@@ -1,7 +1,10 @@
 
 package Validator;
 
-public class NewUserInfo {
+import java.io.Serializable;
+
+
+public class NewUserInfo implements Serializable {
     
     private String nombre;
     private String apellido;
@@ -19,8 +22,8 @@ public class NewUserInfo {
     private double salario;
     private String direccion;
 
-    public String getNombre() {
-        return nombre;
+    public NewUserInfo() {
+        super();
     }
 
     public void setNombre(String nombre) {
