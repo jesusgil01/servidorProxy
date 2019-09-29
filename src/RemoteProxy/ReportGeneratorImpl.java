@@ -10,8 +10,6 @@ import java.rmi.registry.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import Consultas.*;
-import java.rmi.Naming;
-import java.rmi.Remote;
 import java.sql.SQLException;
 import javax.swing.table.DefaultTableModel;
 
@@ -38,6 +36,7 @@ public class ReportGeneratorImpl extends UnicastRemoteObject implements ReportGe
     public boolean insertUsuario(NewUserInfo user) {
 
         query = consulta.insertUsuario(user);
+        System.out.println(query);
 
         try {
 
@@ -145,13 +144,14 @@ public class ReportGeneratorImpl extends UnicastRemoteObject implements ReportGe
 
     @Override
     public boolean login(String usuario, String password, String rol) throws RemoteException {
+        System.out.println("ll");
 
-        String query = consulta.login(usuario, password, rol);
+        query = consulta.login(usuario, password, rol);
+        
         try {
             if (db.login(query) == true) {
                 return true;
             }
-
         } catch (SQLException ex) {
             Logger.getLogger(ReportGeneratorImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -162,10 +162,11 @@ public class ReportGeneratorImpl extends UnicastRemoteObject implements ReportGe
     public static void main(String[] args) {
 
         try {
-            Registry reg = LocateRegistry.createRegistry(3458);
+            System.out.println("Corriendo");
+            Registry reg = LocateRegistry.createRegistry(4513);
             ReportGenerator reportGenerator = new ReportGeneratorImpl();
             reg.rebind("ServidorProxy", reportGenerator);
-        } catch (Exception e) {
+        } catch (RemoteException e) {
             e.printStackTrace();
         }
 
