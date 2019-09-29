@@ -22,10 +22,6 @@ public class NewUserInfo implements Serializable {
     private double salario;
     private String direccion;
 
-    public NewUserInfo() {
-        super();
-    }
-
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
